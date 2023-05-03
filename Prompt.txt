@@ -1,0 +1,184 @@
+Sample 1: 
+
+Use this python code as reference
+
+[CODE START]
+
+# import djitellopy packages
+from djitellopy import tello
+
+# connect the drone
+me = tello.Tello()
+me.connect()
+
+# display battery level
+print(me.get_battery())
+
+# take off the drone
+me.takeoff()
+
+# land the drone
+me.land()
+
+# hover the drone 
+me.send_rc_control(0, 0, 0, 0)
+
+# move drone left with speed 5cm/s
+me.send_rc_control(5, 0, 0, 0)
+
+# move drone right with speed 5cm/s
+me.send_rc_control(-5, 0, 0, 0)
+
+# move drone forward with speed 5cm/s
+me.send_rc_control(0, 5, 0, 0)
+
+# move drone back with speed 5cm/s
+me.send_rc_control(0, -5, 0, 0)
+
+# move drone up with speed 5cm/s
+me.send_rc_control(0, 0, 5, 0)
+
+# move drone down with speed 5cm/s
+me.send_rc_control(0, 0, -5, 0)
+
+# move drone Clockwise with speed 5cm/s
+me.send_rc_control(0, 0, 0, 5)
+
+# move drone anticlockwise with speed 5cm/s
+me.send_rc_control(0, 0, 0, -5)
+
+# turn on the stream
+me.streamon()
+
+# get and show the frame 
+img = me.get_frame_read().frame
+img = cv2.resize(img, (1080, 720))
+cv2.imshow("Image", img)
+cv2.waitKey(1)
+
+[CODE END]
+
+Generate code to takeoff the drone, move up 50 cm,  move right 50 cm, turn on the stream, get and show the frame for 10 seconds and land.
+
+
+sample 2:
+
+Use this python code as reference
+
+[CODE START]
+
+# import djitellopy packages
+from djitellopy import tello
+
+# connect the drone
+me = tello.Tello()
+
+me.connect()
+
+# display battery level
+print(me.get_battery())
+
+# take off the drone
+me.takeoff()
+
+# land the drone
+me.land()
+
+# hover the drone
+me.send_rc_control(0, 0, 0, 0)
+
+# move drone left with speed 5cm/s
+me.send_rc_control(5, 0, 0, 0)
+
+# move drone right with speed 5cm/s
+me.send_rc_control(-5, 0, 0, 0)
+
+# move drone forward with speed 5cm/s
+me.send_rc_control(0, 5, 0, 0)
+
+# move drone back with speed 5cm/s
+me.send_rc_control(0, -5, 0, 0)
+
+# move drone up with speed 5cm/s
+me.send_rc_control(0, 0, 5, 0)
+
+# move drone down with speed 5cm/s
+me.send_rc_control(0, 0, -5, 0)
+
+# move drone Clockwise with speed 5cm/s
+me.send_rc_control(0, 0, 0, 5)
+
+# move drone anticlockwise with speed 5cm/s
+me.send_rc_control(0, 0, 0, -5)
+
+# turn on the stream
+me.streamon()
+
+# get and show the frame
+img = me.get_frame_read().frame
+img = cv2.resize(img, (1080, 720))
+cv2.imshow("Image", img)
+cv2.waitKey(1)
+
+# create a face cascade object
+faceCascade = cv2.CascadeClassifier("Resources/haarcascade_frontalface_default.xml")
+
+# create a list of points of the face found in the img
+def findFace(img):
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(imgGray, 1.2, 8)
+
+    myFaceListC = []
+    myFaceListArea = []
+
+    for (x, y, w, h) in faces:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cx = x + w // 2
+        cy = y + h // 2
+        area = w * h
+        cv2.circle(img, (cx, cy), 5, (0, 255, 0), cv2.FILLED)
+        myFaceListC.append([cx, cy])
+        myFaceListArea.append(area)
+    if len(myFaceListArea) != 0:
+        i = myFaceListArea.index(max(myFaceListArea))
+        return img, [myFaceListC[i], myFaceListArea[i]]
+    else:
+        return img, [[0, 0], 0]
+
+[CODE END]
+
+Generate code to takeoff the drone, move up 50 cm, move right 50 cm, turn on the stream, get and show the frame for 15 seconds, meanwhile, find the face in the image and finally land.
+
+sample 3:
+使用以下代码作为参考
+
+[CODE START]
+
+# 引入 djitellopy 包
+from djitellopy import tello
+
+# 新建名字为me的tello无人机
+me = tello.Tello()
+
+# 连接无人机
+me.connect()
+
+# 起飞
+me.takeoff()
+
+# 降落
+me.land()
+
+# 悬停 
+me.send_rc_control(0, 0, 0, 0)
+
+# 以5cm/s的速度右移
+me.send_rc_control(-5, 0, 0, 0)
+
+# 以5cm/s的速度上升
+me.send_rc_control(0, 0, 5, 0)
+
+
+[CODE END]
+
+请产生代码，完成如下任务：引入 djitellopy 包, 新建名字为me的tello无人机， 连接无人机，起飞，延时 5 秒钟, 上升30cm,  往右移动30cm, 悬停5秒钟，最后降落.
